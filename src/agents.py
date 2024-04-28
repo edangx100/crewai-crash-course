@@ -3,6 +3,17 @@ from crewai import Agent
 
 from tools import ExaSearchToolset
 
+##############
+import os
+os.environ["ANTHROPIC_API_KEY"] = ''
+
+from langchain_anthropic import ChatAnthropic
+ClaudeHaiku = ChatAnthropic(
+    # model="claude-3-haiku-20240307"
+    model="claude-3-opus-20240229"
+)
+###########
+
 class MeetingPrepAgents():
     def research_agent(self):
       return Agent(
@@ -13,7 +24,8 @@ class MeetingPrepAgents():
           As a Research Specialist, your mission is to uncover detailed information
 					about the individuals and entities participating in the meeting. Your insights
 					will lay the groundwork for strategic meeting preparation."""),
-        verbose=True
+        verbose=True,
+        llm=ClaudeHaiku,
       )
       
     def industry_analysis_agent(self):
@@ -25,7 +37,8 @@ class MeetingPrepAgents():
             As an Industry Analyst, your analysis will identify key trends,
             challenges facing the industry, and potential opportunities that
             could be leveraged during the meeting for strategic advantage."""),
-        verbose=True
+        verbose=True,
+        llm=ClaudeHaiku,
       )
       
     def meeting_strategy_agent(self):
@@ -36,7 +49,8 @@ class MeetingPrepAgents():
             As a Strategy Advisor, your expertise will guide the development of
             talking points, insightful questions, and strategic angles
             to ensure the meeting's objectives are achieved."""),
-        verbose=True
+        verbose=True,
+        llm=ClaudeHaiku,
       )
       
     def summary_and_briefing_agent(self): 
@@ -46,5 +60,6 @@ class MeetingPrepAgents():
         backstory=dedent("""\
             As the Briefing Coordinator, your role is to consolidate the research,
             analysis, and strategic insights."""),
-        verbose=True
+        verbose=True,
+        llm=ClaudeHaiku,
       )
